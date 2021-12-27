@@ -1,0 +1,81 @@
+<p>Location, Department and Category:</p>
+
+<div class="container c">
+    <strong>
+        Curd operations w.r.t to location, department and category (using API) 
+
+    </strong>
+    <br><br>
+    <form [formGroup]="modelForm" (submit)="onSubmit()">
+            <label for="model_name">
+                Change location :
+            </label>
+            <select formControlName="location_list" (change)="selectedLocationId($event)"  name="location_list" >
+            <option *ngFor="let location of location_list" [value]="location.id">{{location.name}}</option>
+            </select>
+            <div>
+                <span class="text-danger"
+                            *ngIf="(modelFormControl.location_list.touched || submitted) && modelFormControl.location_list.errors?.required">
+                            Please select the Location!
+                </span>
+            </div>
+            <br>
+            <label for="model_name">
+                Change department :
+            </label>
+            <select formControlName="department_list" (change)="selectedDepartmentId($event)" name="department_list">
+                <option *ngFor="let department of department_list" [value]="department.id">{{department.name}}</option>
+            </select>
+            <div>
+                <span class="text-danger"
+                            *ngIf="(modelFormControl.department_list.touched || submitted) && modelFormControl.department_list.errors?.required">
+                            Please select the Department!
+                </span>
+            </div>
+            <br>
+            <label for="model_name">
+                Select category to link with department :
+            </label>
+            <select formControlName="category_list" name="category_list">
+                <option *ngFor="let category of category_list" [value]="category.id">{{category.name}}</option>
+            </select>
+            <div>
+                <span class="text-danger"
+                            *ngIf="(modelFormControl.category_list.touched || submitted) && modelFormControl.category_list.errors?.required">
+                            Please select the Category!
+                </span>
+            </div>
+        <br>
+        <button class="button" type="submit"> Add Category to Location and Department Combination</button>
+      
+      </form>
+
+      <br>
+      <div *ngIf="categories_data" class="row container-fluid add-model"  id="divshow" >
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                  <th>Location</th>
+                  <th>Department</th>
+                  <th>Category</th>
+                  <th>Category Description </th>
+                  <th>Actions </th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let category of categories_data;">
+                <td>{{ category.location }}</td>
+                <td>{{ category.department }}</td>
+                <td>{{ category.category }}</td>
+                <td>{{ category.description }}</td>
+                <td><button (click)="deleteFCR(category.location_id, category.department_id, category.id)"> Delete </button></td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</div>
+
+<div class="line"></div>
+
+
+

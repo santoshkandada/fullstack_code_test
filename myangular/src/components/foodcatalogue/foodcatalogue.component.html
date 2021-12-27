@@ -1,0 +1,66 @@
+<p>Location and Department Component:</p>
+
+<div class="container c">
+    <strong>
+        Curd operations w.r.t to location, department (using API) 
+
+    </strong>
+    <br><br>
+    <form [formGroup]="modelForm" (submit)="onSubmit()">
+            <label for="model_name">
+                Change location :
+            </label>
+            <select formControlName="location_list" (change)="selectedLocationId($event)"  name="location_list" >
+            <option *ngFor="let location of location_list" [value]="location.id">{{location.name}}</option>
+            </select>
+            <div>
+                <span class="text-danger"
+                            *ngIf="(modelFormControl.location_list.touched || submitted) && modelFormControl.location_list.errors?.required">
+                            Please select the Location!
+                </span>
+            </div>
+            <br>
+            <label for="model_name">
+                Select department to link with location :
+            </label>
+            <select formControlName="department_list" name="department_list">
+                <option *ngFor="let department of department_list" [value]="department.id">{{department.name}}</option>
+            </select>
+            <div>
+                <span class="text-danger"
+                            *ngIf="(modelFormControl.department_list.touched || submitted) && modelFormControl.department_list.errors?.required">
+                            Please select the Department!
+                </span>
+            </div>
+        <br>
+        <button class="button" type="submit"> Add Department to Location</button>
+      
+      </form>
+
+      <br>
+      <div *ngIf="departments_data" class="row container-fluid add-model"  id="divshow" >
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                  <th>Location</th>
+                  <th>Department</th>
+                  <th>Department Description </th>
+                  <th>Actions </th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let department of departments_data;">
+                <td>{{ department.location }}</td>
+                <td>{{ department.department }}</td>
+                <td>{{ department.description }}</td>
+                <td><button (click)="deleteFCR(department.location_id, department.id)"> Delete </button></td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</div>
+
+<div class="line"></div>
+
+
+
