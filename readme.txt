@@ -44,4 +44,23 @@ create table food_catalogue_relationship (id serial primary key,
 										 );
 
 
+nginx conf for api endpoints server name:
+--------------------------------------------
+server {
+        listen 80;
+        server_name api.inmar.in;
+
+        access_log /var/log/nginx/api.inmar.access.log;
+        error_log /var/log/nginx/api.inmar.error.log;
+
+        location / {
+                include proxy_params;
+                #proxy_pass http://unix:/var/www/inmar/inmar.sock;
+                proxy_pass http://127.0.0.1:5000/;
+        }
+}
+
+- Add the below entry in /etc/hosts
+127.0.0.1       api.inmar.in
+
 
